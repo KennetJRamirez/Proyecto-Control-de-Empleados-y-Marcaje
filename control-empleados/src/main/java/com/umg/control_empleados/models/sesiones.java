@@ -22,6 +22,6 @@ public class sesiones {
     @Column(name="inicio", nullable = false, updatable = false)
     private LocalDateTime  inicio;
 
-    @Column(name="fin", nullable = false, updatable= true)
+    @Column(name="fin", updatable= true)
     private LocalDateTime fin;
 }
