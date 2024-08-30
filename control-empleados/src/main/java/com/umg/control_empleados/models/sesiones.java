@@ -19,9 +19,9 @@ public class sesiones {
     @JoinColumn(name = "empleado_id",nullable = false)
     private empleados empleado;
 
-    @Column(nullable = false, updatable = false)
-    private LocalDateTime  inicio = LocalDateTime.now();
+    @Column(name="inicio", nullable = false, updatable = false)
+    private LocalDateTime  inicio;
 
-    @Column(nullable = false, updatable = false)
-    private LocalDateTime  fin = LocalDateTime .now();
+    @Column(name="fin", nullable = false, updatable= true)
+    private LocalDateTime fin;
 }
