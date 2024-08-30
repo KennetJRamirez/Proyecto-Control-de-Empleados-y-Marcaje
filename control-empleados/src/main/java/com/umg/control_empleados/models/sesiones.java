@@ -1,11 +1,7 @@
 package com.umg.control_empleados.models;
-
-
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.cglib.core.Local;
-
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -24,8 +20,8 @@ public class sesiones {
     private empleados empleado;
 
     @Column(nullable = false, updatable = false)
-    private LocalDate inicio = LocalDate.now();
+    private LocalDateTime  inicio = LocalDateTime.now();
 
     @Column(nullable = false, updatable = false)
-    private LocalDate fin = LocalDate.now();
+    private LocalDateTime  fin = LocalDateTime .now();
 }

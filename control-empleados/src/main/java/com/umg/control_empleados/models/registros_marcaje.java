@@ -1,12 +1,11 @@
 package com.umg.control_empleados.models;
 
-
 import jakarta.persistence.*;
 import lombok.*;
 
-
 import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
+
 
 @Entity
 @Table(name = "registros_marcaje")
@@ -28,7 +27,7 @@ public class registros_marcaje {
     private LocalDate fecha;
 
     @Column (name="hora",nullable = false)
-    private LocalTime hora;
+    private LocalDateTime  hora;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
