@@ -7,14 +7,10 @@ import com.umg.control_empleados.models.registros_marcaje;
 import com.umg.control_empleados.repository.registrosRepository;
 import com.umg.control_empleados.repository.empleadosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @RestController
@@ -34,8 +30,7 @@ public class registrosController {
                 registros_marcaje nuevoMarcaje = new registros_marcaje();
                 nuevoMarcaje.setEmpleado(empleados.get());
                 nuevoMarcaje.setFecha(LocalDate.now());
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-                nuevoMarcaje.setHora(LocalTime.parse(LocalTime.now().format(formatter)));
+                nuevoMarcaje.setHora(LocalDateTime.now());
                 nuevoMarcaje.setTipo(tipo);
                 registrosRepository.save(nuevoMarcaje);
                 return ResponseEntity.ok(nuevoMarcaje.getId());
