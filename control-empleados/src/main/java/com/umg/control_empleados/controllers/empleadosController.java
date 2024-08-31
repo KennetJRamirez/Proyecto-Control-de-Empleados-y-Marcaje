@@ -7,7 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -36,19 +39,24 @@ public class empleadosController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> validarEmpleado(@RequestBody validationRequest request) {
+    public ResponseEntity<Map<String, String>> validarEmpleado(@RequestBody validationRequest request) {
         Optional<empleados> empleado = empleadosRepository.findByEmail(request.getEmail());
+        Map<String, String> response = new HashMap<>();
 
         if (empleado.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Empleado no encontrado");
+            response.put("message", "Empleado no encontrado");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
         }
 
         if (!empleado.get().getContrasena().equals(request.getContrasena())) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Contraseña incorrecta");
+            response.put("message", "Contraseña incorrecta");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
         }
 
-        return ResponseEntity.ok("Validación exitosa");
+        response.put("message", "Validación exitosa");
+        return ResponseEntity.ok(response);
     }
+
 
     @PostMapping("/empleados")
     public empleados createEmpleados (@RequestBody empleados empleados){
