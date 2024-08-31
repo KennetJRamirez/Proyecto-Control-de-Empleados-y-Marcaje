@@ -2,7 +2,9 @@ package com.umg.control_empleados.controllers;
 
 import com.umg.control_empleados.models.empleados;
 import com.umg.control_empleados.repository.empleadosRepository;
+import com.umg.control_empleados.models.validationRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -14,6 +16,8 @@ public class empleadosController {
 
     @Autowired
     private empleadosRepository empleadosRepository;
+
+    private validationRequest validationRequest;
 
 
     @GetMapping("/empleados")
@@ -29,6 +33,21 @@ public class empleadosController {
         }else{
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<String> validarEmpleado(@RequestBody validationRequest request) {
+        Optional<empleados> empleado = empleadosRepository.findByEmail(request.getEmail());
+
+        if (empleado.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Empleado no encontrado");
+        }
+
+        if (!empleado.get().getContrasena().equals(request.getContrasena())) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Contraseña incorrecta");
+        }
+
+        return ResponseEntity.ok("Validación exitosa");
     }
 
     @PostMapping("/empleados")
