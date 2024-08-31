@@ -39,22 +39,24 @@ public class empleadosController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> validarEmpleado(@RequestBody validationRequest request) {
+    public ResponseEntity<Map<String, String>> validarEmpleado(@RequestBody validationRequest request) {
         Optional<empleados> empleado = empleadosRepository.findByEmail(request.getEmail());
         Map<String, String> response = new HashMap<>();
+
         if (empleado.isEmpty()) {
-            response.put("mensaje", "Empleado no encontrado");
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response.toString());
+            response.put("message", "Empleado no encontrado");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
         }
 
         if (!empleado.get().getContrasena().equals(request.getContrasena())) {
-            response.put("mensaje", "Contraseña incorrecta");
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response.toString());
+            response.put("message", "Contraseña incorrecta");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
         }
 
-        response.put("mensaje", "Validación exitosa");
-        return ResponseEntity.ok(response.toString());
+        response.put("message", "Validación exitosa");
+        return ResponseEntity.ok(response);
     }
+
 
     @PostMapping("/empleados")
     public empleados createEmpleados (@RequestBody empleados empleados){
