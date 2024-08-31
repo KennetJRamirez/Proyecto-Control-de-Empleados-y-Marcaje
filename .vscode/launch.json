@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-ControlEmpleadosApplication<control-empleados>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.umg.control_empleados.ControlEmpleadosApplication",
+            "projectName": "control-empleados",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
